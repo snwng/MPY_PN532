@@ -1,4 +1,5 @@
-import time
+
+from time import sleep_ms, ticks_ms, ticks_diff # pyright: ignore
 
 _ACK = b"\x00\x00\xFF\x00\xFF\x00"
 _NACK = b"\x00\x00\xFF\xFF\x00\x00"
@@ -44,7 +45,7 @@ class PN532:
                 return self.i2c.readfrom(_PN532_ADDR, n)
             except OSError:
                 if self.debug: print("reading failed, retrying ...")
-                time.sleep_ms(retry_delay)
+                sleep_ms(retry_delay)
         raise OSError("Read failed after retries")
 
     def read_frame(self, n=32):
@@ -69,10 +70,10 @@ class PN532:
 
     def wait_ready(self, timeout=1000, retry_delay=5):
         if self.debug: print("Waiting for device to be ready ...")
-        timestamp = time.ticks_ms()
-        while timeout is None or time.ticks_diff(time.ticks_ms(), timestamp) < timeout:
+        timestamp = ticks_ms()
+        while timeout is None or ticks_diff(ticks_ms(), timestamp) < timeout:
             try:
-                time.sleep_ms(retry_delay)
+                sleep_ms(retry_delay)
                 r = self.read_rawdata(1)
                 if r and r[0] == 0x01:
                     return
@@ -215,10 +216,9 @@ class PN532:
     def wakeup(self):
         if self.debug: print("Waking up device ...")
         self.write_rawdata(_ACK)
-        time.sleep_ms(50)
+        sleep_ms(50)
         self.pow_down = False
 
     def abort_cmd(self):
         if self.debug: print("Sending ACK to abort ...")
         self.write_rawdata(_ACK)
-
