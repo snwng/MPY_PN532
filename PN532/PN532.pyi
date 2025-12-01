@@ -24,7 +24,7 @@ _MIFARE_DECREMENT: int
 KEY_A: int
 KEY_B: int
 
-class PN532:
+class PN532_I2C:
     i2c: Any
     debug: bool
     pow_down: bool
@@ -41,7 +41,7 @@ class PN532:
     def read_frame(self, n: int = 32) -> bytes:
         """Reads a complete data frame from the PN532."""
         ...
-    def wait_ready(self, timeout: int = 1000, retry_delay: int = 5) -> None:
+    def wait_ready(self, timeout: int = 1000, retry_delay: int = 5) -> bool:
         """Waits for the PN532 to be ready to receive a command."""
         ...
     def write_cmd(self, cmd: int, params: Optional[List[int]] = None) -> None:
