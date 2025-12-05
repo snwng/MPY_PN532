@@ -21,8 +21,11 @@ _MIFARE_READ: int
 _MIFARE_WRITE: int
 _MIFARE_INCREMENT: int
 _MIFARE_DECREMENT: int
-KEY_A: int
-KEY_B: int
+
+A: int
+B: int
+DEFAULT_KEYA: List[int]
+DEFAULT_KEYB: List[int]
 
 class PN532_I2C:
     i2c: Any
