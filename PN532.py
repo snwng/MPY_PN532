@@ -1,6 +1,6 @@
 """
 This MicroPython module lets you communicate with the PN532 nfc/rfid module over I2C,
-It also cover auth/read/write on a mifare card.
+It also covers auth/read/write on a mifare card.
 """
 
 from time import sleep_ms, ticks_ms, ticks_diff # pyright: ignore
