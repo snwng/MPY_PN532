@@ -176,7 +176,7 @@ class PN532_I2C:
         if res[0] != _CMD_SAM_CONFIGURATION + 1:
             raise OSError("Invalid response")
 
-    def list_passive_target(self, timeout=3000):
+    def list_passive_target(self, timeout=1000):
         """
         Listen for a given amount of time for passive targets
         if none are detected within timeout return an empty list
@@ -187,7 +187,7 @@ class PN532_I2C:
         """
         if self.debug: print("Listing Passive Targets ...")
         self.write_cmd(_CMD_InListPassiveTarget, [0x01, 0x00])
-        if not self.wait_ready():
+        if not self.wait_ready(timeout):
             if self.debug: print("No Device detected")
             self.abort_cmd()
             return []
