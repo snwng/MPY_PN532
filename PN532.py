@@ -166,7 +166,7 @@ class PN532_I2C:
 
     def set_mode(self, mode=0x01):
         """
-        Sets the SAM_Configuration mode to 1 to initiate PCD mode, raises a error if it failed
+        Sets the SAM_Configuration mode to 1 to initiate PCD mode, raises an error if it failed
         refers to the PN532 user-guide for more details about modes
         """
         if self.debug: print(f"Setting device mode to {mode} ...")
